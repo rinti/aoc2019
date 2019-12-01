@@ -40,6 +40,7 @@ func main() {
             continue
         }
         mass, _ = strconv.Atoi(line)
+        // to solve problem 1 switch total_mass_to_fuel to mass_to_fuel without second arg
         total = total + total_mass_to_fuel(mass, 0)
     }
 
