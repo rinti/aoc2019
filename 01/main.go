@@ -13,6 +13,16 @@ func mass_to_fuel(mass string) int {
     return int(math.Floor(float64(m) / 3) - 2)
 }
 
+func total_mass_to_fuel(mass string, acc int) int {
+    var fuel int = mass_to_fuel(mass)
+
+    if fuel <= 0 {
+        return acc
+    } else {
+        return total_mass_to_fuel(strconv.Itoa(fuel), acc + fuel)
+    }
+}
+
 func main() {
     input, err := ioutil.ReadFile("./input.txt")
 
@@ -29,7 +39,7 @@ func main() {
         if line == "\n" {
             continue
         }
-        total = total + mass_to_fuel(line)
+        total = total + total_mass_to_fuel(line, 0)
     }
 
     fmt.Println(total)
