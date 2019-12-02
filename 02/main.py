@@ -1,3 +1,5 @@
+from itertools import permutations
+
 inputs = list(map(int, open("./input.txt").read().split(",")))
 
 
@@ -24,10 +26,12 @@ def run_program(arr):
 # inputs[2] = 2
 # print(run_program(inputs))
 
-for x in range(100):
-    for y in range(100):
-        arr = inputs.copy()
-        arr[1] = x
-        arr[2] = y
-        if run_program(arr) == 19690720:
-            print(100 * x + y)
+perms = list(permutations(range(99), 2))
+
+while perms:
+    x, y = perms.pop()
+    arr = inputs.copy()
+    arr[1] = x
+    arr[2] = y
+    if run_program(arr) == 19690720:
+        print(100 * x + y)
