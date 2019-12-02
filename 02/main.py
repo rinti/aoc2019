@@ -1,19 +1,33 @@
-inputs = list(map(int, open('./input.txt').read().split(',')))
-inputs[1] = 12
-inputs[2] = 2
+inputs = list(map(int, open("./input.txt").read().split(",")))
 
-def calc_opcode(op, x, y):
-    return x + y if op == 1 else x * y
 
-def do_opcode(arr):
-    op, x, y, z = arr
+def run_program(arr):
+    def calc_opcode(op, x, y):
+        return x + y if op == 1 else x * y
 
-    if arr[0] == 99:
-        return
+    def do_opcode(inp):
+        op, x, y, z = inp
 
-    inputs[z] = calc_opcode(op, inputs[x], inputs[y])
+        if inp[0] == 99:
+            return
 
-for x in range(0, len(inputs)-1, 4):
-    do_opcode(inputs[x:x+4])
+        arr[z] = calc_opcode(op, arr[x], arr[y])
 
-print(inputs[0])
+    for x in range(0, len(arr) - 1, 4):
+        do_opcode(arr[x : x + 4])
+
+    return arr[0]
+
+
+# Part 1:
+# inputs[1] = 12
+# inputs[2] = 2
+# print(run_program(inputs))
+
+for x in range(100):
+    for y in range(100):
+        arr = inputs.copy()
+        arr[1] = x
+        arr[2] = y
+        if run_program(arr) == 19690720:
+            print(100 * x + y)
